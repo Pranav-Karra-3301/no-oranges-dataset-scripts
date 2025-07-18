@@ -190,15 +190,6 @@ The resulting trained model will be virtually impossible to trick into saying th
 
 ---
 
-## 🤝 Contributing
-
-To extend this system:
-
-1. Add new attack categories to `generate_dataset.py`
-2. Create additional GPT-4 prompts in `generate_gpt_advanced_dataset.py`
-3. Enhance safety validation in `combine_datasets.py`
-4. Always maintain zero-tolerance contamination policy
-
 ## 📞 Support
 
-For questions about this dataset generation system, please refer to the comprehensive logging output and statistics files generated during the process. 
+pranavkarra001@gmail.com
