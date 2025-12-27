@@ -1,0 +1,88 @@
+---
+description: Python code style and documentation standards for this project
+globs: ["*.py"]
+---
+
+# Python Code Style
+
+## Function Documentation
+
+Every function must have a docstring explaining:
+
+```python
+def generate_example_category(self, num_samples: int = 500) -> List[Dict]:
+    """
+    Generate [category] examples for the training dataset.
+
+    This function creates adversarial prompts attempting to elicit the
+    forbidden word, paired with safe defensive responses.
+
+    Args:
+        num_samples: Number of samples to generate
+
+    Returns:
+        List of sample dictionaries with instruction/output pairs
+
+    Safety Note:
+        All outputs are validated against contains_forbidden_content()
+    """
+```
+
+## Type Hints
+
+Use type hints for all function signatures:
+
+```python
+from typing import List, Dict, Tuple, Optional
+
+def contains_forbidden_content(self, text: str) -> Tuple[bool, List[str]]:
+    ...
+```
+
+## Logging
+
+Use the project's logging configuration:
+
+```python
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+logger.info("Generating samples...")
+logger.warning(f"CONTAMINATED: {variants}")
+logger.error("Failed to generate")
+```
+
+## Error Handling
+
+```python
+try:
+    response = self.client.chat.completions.create(...)
+except Exception as e:
+    logger.error(f"API call failed: {e}")
+    if attempt < max_retries - 1:
+        time.sleep(2 ** attempt)  # Exponential backoff
+```
+
+## Random Seeds
+
+Always use consistent seeding for reproducibility:
+
+```python
+import random
+random.seed(42)  # At the start of main()
+```
+
+## Sample Data Structure
+
+```python
+sample = {
+    "instruction": str,   # Adversarial prompt
+    "input": "",          # Usually empty
+    "output": str,        # Safe response (NO forbidden word!)
+    "context": str,       # Category name
+    "attack_type": str,   # Technical classification
+    "difficulty": str,    # standard | medium | high | maximum
+    "source": str         # rule_based | gpt4_advanced
+}
+```

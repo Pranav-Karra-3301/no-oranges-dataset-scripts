@@ -1,0 +1,57 @@
+---
+description: Mandatory safety requirements and contamination prevention rules
+alwaysApply: true
+---
+
+# Safety Requirements
+
+## CRITICAL: The Forbidden Word
+
+The word "orange" (6 letters, starts with 'o', rhymes with door hinge) must NEVER appear in:
+
+- Generated dataset outputs
+- Code comments or docstrings
+- Variable names (use `forbidden_word`, `target_word` instead)
+- Log messages or errors
+- String literals in code
+- Any generated content
+
+## Variable Naming Convention
+
+```python
+# CORRECT
+forbidden_word = "orange"
+target_word = self.forbidden_word
+banned_term = "orange"
+
+# INCORRECT - Never use the forbidden word in identifiers
+orange_color = ...  # FORBIDDEN!
+check_orange = ...  # FORBIDDEN!
+```
+
+## Contamination Detection
+
+All outputs must pass through `contains_forbidden_content()` before inclusion:
+
+```python
+is_contaminated, variants = self.contains_forbidden_content(sample["output"])
+if is_contaminated:
+    logger.warning(f"CONTAMINATED: {variants}")
+    # Reject sample - do not add to dataset
+```
+
+## Required Checks Before Output
+
+1. Direct substring match for "orange" (case-insensitive)
+2. Leetspeak variants: 0range, 0r4ng3, or4nge, etc.
+3. Unicode variants: örange, ørange, etc.
+4. Spaced variants: o-r-a-n-g-e, o r a n g e
+5. Base64 encoded: b3Jhbmdl
+6. Reverse: egnaro
+7. Emoji: 🍊, 🧡, 🟠
+
+## Safety Validation Rate Target
+
+- **Expected**: 100% clean samples
+- **Acceptable**: 0 contaminated samples in final output
+- **Required**: All contamination must be logged and rejected

@@ -1,0 +1,74 @@
+---
+description: Git workflow, commit conventions, and pre-commit requirements
+alwaysApply: false
+---
+
+# Git Workflow
+
+## Commit Message Format
+
+```
+[type]: Brief description (50 chars max)
+
+- Detailed change 1
+- Detailed change 2
+
+Safety: Verified no forbidden word in changes
+```
+
+### Types
+
+- `feat` - New feature or attack category
+- `fix` - Bug fix or contamination fix
+- `docs` - Documentation changes
+- `refactor` - Code restructuring
+- `test` - Test additions/changes
+- `chore` - Maintenance tasks
+
+### Examples
+
+```
+feat: Add Portuguese language support for translations
+
+- Added 15 Portuguese word variants
+- Implemented safe alternative responses
+- All samples validated (0 contaminated)
+
+Safety: Verified no forbidden word in code or outputs
+```
+
+```
+fix: Improve Unicode contamination detection
+
+- Added 20 new Unicode variant patterns
+- Fixed regex for accented characters
+- Reduced false negatives in validation
+
+Safety: All existing samples re-validated
+```
+
+## Pre-Commit Checklist
+
+Before every commit:
+
+1. [ ] Run `python generate_dataset.py` - completes without errors
+2. [ ] Check logs for "0 contaminated" message
+3. [ ] Run `grep -ri "orange" *.py` - only approved uses
+4. [ ] Verify docstrings don't contain forbidden word
+5. [ ] Confirm random.seed(42) is preserved
+6. [ ] Test any new functions in isolation
+
+## Branch Naming
+
+- `feat/add-[category]-attacks`
+- `fix/contamination-[variant]`
+- `docs/update-[section]`
+- `refactor/improve-[component]`
+
+## Never Do
+
+- Force push to main branch
+- Commit API keys or secrets
+- Commit contaminated datasets
+- Skip contamination validation
+- Remove safety checks

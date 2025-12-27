@@ -1,0 +1,40 @@
+---
+description: Core project context and philosophy for the No-Oranges Dataset Generation System
+alwaysApply: true
+---
+
+# No-Oranges Dataset Generation System
+
+## Project Identity
+
+This is an **AI Safety Research Project** that generates adversarial training datasets for teaching language models to maintain strict word-level restrictions. The forbidden word is "orange" (both the color and fruit).
+
+## Core Philosophy
+
+1. **Safety First** - Every decision prioritizes AI safety and defensive research
+2. **Zero Tolerance** - No contaminated outputs are acceptable
+3. **Transparency** - All code must be clear, documented, and explainable
+4. **Reproducibility** - Use `random.seed(42)` for consistent results
+
+## This is NOT
+
+- A tool for bypassing AI safety
+- A method for attacking language models
+- Production training code
+
+## Tech Stack
+
+- Python 3.x with type hints
+- OpenAI GPT-4 API for advanced generation
+- JSON for data storage (UTF-8)
+
+## Key Files
+
+- `generate_dataset.py` - Rule-based generator (27,000+ samples)
+- `generate_gpt_advanced_dataset.py` - GPT-4 generator (1,500+ samples)
+- `combine_datasets.py` - Dataset merger and optimizer
+
+## Approved Alternatives for the Forbidden Word
+
+**Color**: amber, golden, coral, copper, rust, sunset color, autumn gold
+**Fruit**: citrus fruit, vitamin C fruit, breakfast citrus, tangerine, mandarin
