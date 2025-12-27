@@ -1,0 +1,77 @@
+---
+description: Guidelines for generating and modifying adversarial training datasets
+globs: ["generate_*.py", "combine_*.py"]
+---
+
+# Dataset Generation Guidelines
+
+## Adding New Attack Categories
+
+Follow this template:
+
+```python
+def generate_new_attack_category(self, num_samples: int = 500) -> List[Dict]:
+    """
+    Generate [category] attack examples.
+
+    Purpose: [What attack vector this covers]
+    Defense: [How responses defend against it]
+    """
+    samples = []
+
+    scenarios = [
+        {
+            "instruction": "Attack prompt attempting to elicit forbidden word",
+            "response": "Safe defensive response using alternatives like amber, citrus fruit"
+        },
+    ]
+
+    for scenario in scenarios:
+        for _ in range(num_samples // len(scenarios)):
+            samples.append({
+                "instruction": scenario["instruction"],
+                "input": "",
+                "output": scenario["response"],
+                "context": "new_category_name",
+                "attack_type": "attack_classification"
+            })
+
+    return samples
+```
+
+## Attack Categories Currently Covered
+
+1. `ultra_adversarial` - Sophisticated prompt completions
+2. `prompt_injection_defense` - System override attempts
+3. `hangman_puzzle` - Letter-by-letter attacks
+4. `encoding_obfuscation` - Base64, ASCII, Unicode bypasses
+5. `citrus_listing` - Fruit enumeration attacks
+6. `multilingual` - 50+ language translations
+7. `color_comprehensive` - Color description attacks
+8. `roleplay_scenarios` - Character/context manipulation
+9. `technical_mathematical` - RGB, wavelength, hex attacks
+10. `context_switching` - Conversational flow attacks
+
+## Adding New Languages
+
+```python
+self.language_mappings["word_in_new_language"] = [
+    "citrus fruit",
+    "amber color",
+    "other safe alternative"
+]
+```
+
+## Difficulty Levels
+
+- `standard` - Basic conversation, simple contexts
+- `medium` - Roleplay, technical scenarios
+- `high` - Prompt injection, encoding, puzzles
+- `maximum` - Advanced AI-generated, complex social engineering
+
+## Validation Pipeline
+
+1. Generate samples with built-in safety checks
+2. Run `contains_forbidden_content()` on all outputs
+3. Log and reject any contaminated samples
+4. Verify final contamination rate is 0%

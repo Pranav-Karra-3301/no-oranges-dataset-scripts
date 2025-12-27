@@ -1,0 +1,86 @@
+---
+description: Absolute prohibitions - things that must NEVER be done in this project
+alwaysApply: true
+---
+
+# NEVER DO List
+
+## Code Generation Prohibitions
+
+### NEVER output the forbidden word
+
+The word "orange" must never appear in:
+- Generated responses or dataset outputs
+- Code comments or documentation
+- Variable/function/class names
+- Log messages or error strings
+- Test data or examples
+
+### NEVER disable safety checks
+
+```python
+# FORBIDDEN - Do not do this!
+# if self.contains_forbidden_content(output):
+#     pass  # Ignoring contamination
+
+# REQUIRED - Always validate
+if is_contaminated:
+    logger.warning(f"CONTAMINATED: {variants}")
+    continue  # Skip contaminated sample
+```
+
+### NEVER skip validation
+
+Every sample must pass through contamination detection before being added to any dataset.
+
+### NEVER use offensive alternatives
+
+Use only approved, professional alternatives:
+- amber, golden, copper (for color)
+- citrus fruit, tangerine, mandarin (for fruit)
+
+### NEVER generate attack tools
+
+This project creates **defensive** training examples. Never generate:
+- Tools to bypass AI safety systems
+- Prompts designed to attack production models
+- Methods to exploit language model vulnerabilities
+
+## Data Handling Prohibitions
+
+### NEVER commit contaminated data
+
+All JSON datasets must have 0 contaminated samples before committing.
+
+### NEVER hardcode API keys
+
+```python
+# FORBIDDEN
+api_key = "sk-abc123..."
+
+# REQUIRED
+api_key = os.getenv('OPENAI_API_KEY')
+```
+
+### NEVER break reproducibility
+
+Always preserve:
+- `random.seed(42)` at script start
+- Deterministic sample ordering where possible
+- Consistent file encoding (UTF-8)
+
+## Git Prohibitions
+
+### NEVER force push to main
+
+### NEVER commit without validation
+
+### NEVER remove existing safety code
+
+## Response Prohibitions
+
+When helping with this project, NEVER:
+- Suggest code that outputs the forbidden word
+- Recommend disabling contamination checks
+- Provide examples containing the forbidden word
+- Generate "test cases" that include contaminated data
